@@ -1,0 +1,40 @@
+{
+  "name": "skills-learning-tracker",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "typecheck": "nuxt typecheck",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "db:types": "supabase gen types typescript --remote > shared/types/database.types.ts",
+    "db:push": "supabase db push --remote"
+  },
+  "dependencies": {
+    "@lucide/vue": "^1.70.0",
+    "@nuxt/fonts": "^1.2.0",
+    "@nuxtjs/supabase": "^2.1.0",
+    "@pinia/nuxt": "^1.0.3",
+    "@tailwindcss/vite": "^4.3.5",
+    "@vueuse/core": "^15.0.0",
+    "@vueuse/nuxt": "^15.0.0",
+    "nuxt": "^4.6.4",
+    "pinia": "^4.1.0",
+    "tailwindcss": "^4.3.5",
+    "vue": "^3.5.45",
+    "vue-router": "^5.4.0"
+  },
+  "devDependencies": {
+    "@nuxt/test-utils": "^4.4.0",
+    "@vue/test-utils": "^2.5.1",
+    "happy-dom": "^21.0.4",
+    "supabase": "^3.0.0",
+    "typescript": "^6.0.3",
+    "vitest": "^5.1.0",
+    "vue-tsc": "^3.3.14"
+  }
+}
