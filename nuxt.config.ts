@@ -45,6 +45,14 @@ export default defineNuxtConfig({
     },
   },
 
+  runtimeConfig: {
+    public: {
+      // Where links in auth emails (confirm, reset password) should point. Leave empty locally:
+      // the address of the running app (e.g. http://localhost:3000) is used. Set it in production.
+      siteUrl: '',
+    },
+  },
+
   routeRules: {
     // The email-confirmation callback exchanges its code in the browser (the module did this for us)
     '/confirm': { ssr: false },

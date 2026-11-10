@@ -7,7 +7,9 @@ export type SignUpStatus = 'signed-in' | 'confirm-email'
 export function useAuth() {
   const client = useSupabaseClient()
   const user = useSupabaseUser()
-  const origin = useRequestURL().origin
+  // Production sets NUXT_PUBLIC_SITE_URL; locally it's empty, so links point back at whatever address the app runs on
+  const configuredSiteUrl = useRuntimeConfig().public.siteUrl as string
+  const origin = (configuredSiteUrl || useRequestURL().origin).replace(/\/+$/, '')
 
   const isAuthenticated = computed(() => !!user.value)
   /** Email from the JWT claims — the module exposes claims, not the full User object. */
