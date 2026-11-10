@@ -1,0 +1,159 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+/* Lets `dark:` utilities follow both the system preference and the manual toggle */
+@custom-variant dark {
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme="light"]) *) {
+      @slot;
+    }
+  }
+
+  &:where([data-theme="dark"], [data-theme="dark"] *) {
+    @slot;
+  }
+}
+
+/* Brand tokens → Tailwind utilities (bg-surface, text-text-primary, bg-heatmap-heavy …) */
+@theme inline reference {
+  --color-bg-primary: var(--color-bg-primary);
+  --color-bg-secondary: var(--color-bg-secondary);
+  --color-bg-tertiary: var(--color-bg-tertiary);
+  --color-surface: var(--color-surface);
+  --color-border: var(--color-border);
+  --color-border-subtle: var(--color-border-subtle);
+  --color-border-strong: var(--color-border-strong);
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-tertiary: var(--color-text-tertiary);
+  --color-accent: var(--color-accent);
+  --color-accent-hover: var(--color-accent-hover);
+  --color-accent-subtle: var(--color-accent-subtle);
+  --color-accent-solid: var(--color-accent-solid);
+  --color-accent-solid-hover: var(--color-accent-solid-hover);
+  --color-on-accent: var(--color-on-accent);
+  --color-accent-text: var(--color-accent-text);
+  --color-success: var(--color-success);
+  --color-warning: var(--color-warning);
+  --color-warning-text: var(--color-warning-text);
+  --color-error: var(--color-error);
+  --color-streak: var(--color-streak);
+  --color-progress: var(--color-progress);
+  --color-heatmap-empty: var(--color-heatmap-empty);
+  --color-heatmap-light: var(--color-heatmap-light);
+  --color-heatmap-medium: var(--color-heatmap-medium);
+  --color-heatmap-heavy: var(--color-heatmap-heavy);
+
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+}
+
+@theme {
+  --font-heading: "Space Grotesk", system-ui, -apple-system, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Fira Code", monospace;
+
+  --text-xs: 0.75rem;
+  --text-xs--line-height: 1.45;
+  --text-sm: 0.8125rem;
+  --text-sm--line-height: 1.45;
+  --text-base: 1rem;
+  --text-base--line-height: 1.6;
+  --text-lg: 1.25rem;
+  --text-lg--line-height: 1.4;
+  --text-xl: 1.5625rem;
+  --text-xl--line-height: 1.3;
+  --text-2xl: 1.9375rem;
+  --text-2xl--line-height: 1.25;
+  --text-3xl: 2.4375rem;
+  --text-3xl--line-height: 1.2;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  --spacing: 0.25rem;
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999rem;
+
+  --spacing-topbar: 3.5rem;
+  --container-content: 72rem;
+  --container-detail: 48rem;
+  --container-page: 80rem;
+}
+
+@layer base {
+  html {
+    color-scheme: light dark;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  html[data-theme="light"] {
+    color-scheme: light;
+  }
+
+  html[data-theme="dark"] {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: var(--leading-prose);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
+    text-wrap: balance;
+  }
+
+  /* Modal dialogs: stop the page behind from scrolling */
+  body:has(dialog[open]) {
+    overflow: hidden;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Theme switch: briefly fade colours. The class is added only while switching (see utils/theme-dom.ts),
+   so page load never animates, and reduced-motion users get an instant change. */
+@media (prefers-reduced-motion: no-preference) {
+  html.theme-transition,
+  html.theme-transition *,
+  html.theme-transition *::before,
+  html.theme-transition *::after {
+    transition:
+      background-color 0.25s ease,
+      border-color 0.25s ease,
+      color 0.25s ease,
+      fill 0.25s ease,
+      stroke 0.25s ease,
+      box-shadow 0.25s ease !important;
+  }
+}
